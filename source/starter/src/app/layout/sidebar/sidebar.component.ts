@@ -1,4 +1,4 @@
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import {
   Component,
@@ -24,33 +24,33 @@ export class SidebarComponent
 {
   public sidebarItems: any[];
   level1Menu = '';
-  level2Menu = '';
-  level3Menu = '';
   public innerHeight: any;
   public bodyTag: any;
   listMaxHeight: string;
   listMaxWidth: string;
   headerHeight = 60;
   routerObj = null;
+  name: string;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     public elementRef: ElementRef,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
     super();
     this.routerObj = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // logic for select active menu in dropdown
         const currenturl = event.url.split('?')[0];
-        this.level1Menu = currenturl.split('/')[1];
-        this.level2Menu = currenturl.split('/')[2];
+        this.level1Menu = currenturl.split('/')[0];
 
         // close sidebar on mobile screen after menu select
         this.renderer.removeClass(this.document.body, 'overlay-open');
       }
     });
+
   }
   @HostListener('window:resize', ['$event'])
   windowResizecall(event) {
@@ -66,8 +66,6 @@ export class SidebarComponent
   callLevel1Toggle(event: any, element: any) {
     if (element === this.level1Menu) {
       this.level1Menu = '0';
-    } else {
-      this.level1Menu = element;
     }
     const hasClass = event.target.classList.contains('toggled');
     if (hasClass) {
@@ -76,20 +74,7 @@ export class SidebarComponent
       this.renderer.addClass(event.target, 'toggled');
     }
   }
-  callLevel2Toggle(event: any, element: any) {
-    if (element === this.level2Menu) {
-      this.level2Menu = '0';
-    } else {
-      this.level2Menu = element;
-    }
-  }
-  callLevel3Toggle(event: any, element: any) {
-    if (element === this.level3Menu) {
-      this.level3Menu = '0';
-    } else {
-      this.level3Menu = element;
-    }
-  }
+
   ngOnInit() {
     if (this.authService.currentUserValue) {
       this.sidebarItems = ROUTES.filter((sidebarItem) => sidebarItem);
@@ -137,4 +122,5 @@ export class SidebarComponent
       this.renderer.addClass(this.document.body, 'submenu-closed');
     }
   }
+
 }

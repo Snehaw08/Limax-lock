@@ -13,24 +13,52 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: '/authentication/signin', pathMatch: 'full' },
       {
-        path: 'dashboard',
+        path: 'devices',
         loadChildren: () =>
-          import('./dashboard/dashboard.module').then((m) => m.DashboardModule)
+          import('./device/device-routing.module').then((m) => m.DeviceRoutingModule)
       },
       {
-        path: 'extra-pages',
+        path: 'profile',
         loadChildren: () =>
-          import('./extra-pages/extra-pages.module').then(
-            (m) => m.ExtraPagesModule
+          import('./profile/profile.module').then(
+            (m) => m.ProfileModule
           )
       },
       {
-        path: 'multilevel',
+        path: 'websites',
         loadChildren: () =>
-          import('./multilevel/multilevel.module').then(
-            (m) => m.MultilevelModule
+          import('./website/website.module').then(
+            (m) => m.WebsiteModule
           )
-      }
+      },
+      {
+        path: 'android-for-work',
+        loadChildren: () =>
+          import('./work/work.module').then(
+            (m) => m.WorkModule
+          )
+      },
+      {
+        path: 'enterprise-app-store',
+        loadChildren: () =>
+          import('./app-store/app-store.module').then(
+            (m) => m.AppStoreModule
+          )
+      },
+      {
+        path: 'advanced-restrictions',
+        loadChildren: () =>
+          import('./restrication/restrication.module').then(
+            (m) => m.RestricationModule
+          )
+      },
+  {
+    path: 'managed-configuration',
+    loadChildren: () =>
+      import('./configuration/configuration.module').then(
+        (m) => m.ConfigurationModule
+      )
+  },
     ]
   },
   {

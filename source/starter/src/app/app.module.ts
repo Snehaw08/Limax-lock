@@ -1,3 +1,4 @@
+import { ProfileComponent } from './../../../main/src/app/extra-pages/profile/profile.component';
 import { NgModule } from '@angular/core';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
@@ -30,6 +31,13 @@ import {
   HttpClient
 } from '@angular/common/http';
 import { WINDOW_PROVIDERS } from './core/service/window.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { DeviceComponent } from './device/device.component';
+import { WebsiteComponent } from './website/website.component';
+import { WorkComponent } from './work/work.component';
+import { AppStoreComponent } from './app-store/app-store.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { RestricationComponent } from './restrication/restrication.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -48,7 +56,14 @@ export function createTranslateLoader(http: HttpClient): any {
     SidebarComponent,
     RightSidebarComponent,
     AuthLayoutComponent,
-    MainLayoutComponent
+    DeviceComponent,
+    MainLayoutComponent,
+    WebsiteComponent,
+    ProfileComponent,
+    WorkComponent,
+    AppStoreComponent,
+    ConfigurationComponent,
+    RestricationComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +73,7 @@ export function createTranslateLoader(http: HttpClient): any {
     PerfectScrollbarModule,
     NgxSpinnerModule,
     ClickOutsideModule,
+    MatMenuModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -66,7 +82,7 @@ export function createTranslateLoader(http: HttpClient): any {
       }
     }),
     CoreModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
